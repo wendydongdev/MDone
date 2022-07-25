@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="icon" type="image/png" href="../static/images/m-logo.png">
+  <link rel="icon" type="image/png" href="../static/images/uta-logo.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    MDone - light way for group work
+    Paper Dashboard 2 by Creative Tim
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -14,8 +14,9 @@
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <!-- CSS Files -->
   <link href="../static/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="../static/css/paper-dashboard.css" rel="stylesheet" />
-  <link href="../static/css/mian.css" rel="stylesheet" />
+  <link href="../static/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="../static/demo/demo.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -23,7 +24,7 @@
     <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
           <div class="logo-image-small">
-            <img src="{{ url_for('static',filename='images/m-logo.png')}}" >
+            <img src="{{ url_for('static',filename='images/uta-logo-200.png')}}">
           </div>
       </div>
       <div class="sidebar-wrapper">
@@ -51,12 +52,12 @@
                                 {% endif %}
                             {% endwith %}
                         </div>
-{#                        <div class="card-footer ">#}
-{#                            <hr>#}
-{#                            <div class="stats">#}
-{#                                <i class="fa fa-history"></i> Updated 3 minutes ago#}
-{#                            </div>#}
-{#                        </div>#}
+                        <div class="card-footer ">
+                            <hr>
+                            <div class="stats">
+                                <i class="fa fa-history"></i> Updated 3 minutes ago
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -66,7 +67,7 @@
           <div class="col-md-12">
             <div class="card ">
               <div class="card-header ">
-{#                <h5 class="card-title">focus</h5>#}
+                <h5 class="card-title">focus</h5>
               </div>
               <div class="card-body ">
                 {%  block content %}

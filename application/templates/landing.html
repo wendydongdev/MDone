@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MDone - a new way for team work</title>
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/paper-dashboard.css')}}"/>
+</head>
+<body>
+
+<div class="container-fluid text-center top-container">
+    <img src="{{ url_for('static',filename='images/uta-logo-200.png')}}">
+</div>
+<div class="container">
+
+    {% include "includes/nav.html" %}
+
+    {% if session['username'] %}
+        <span class="user">Welcome, {{ session['username'] }}</span>
+    {% endif %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{category}}">
+                    <p>{{ message }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {%  block content %}
+
+    {% endblock %}
+
+</div>
+    {% include "includes/footer.html" %}
+
+    <script src="../assets/js/core/jquery.min.js" type="text/javascript"></script>
+    <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
+    <script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
+    <script src="../assets/js/plugins/moment.min.js"></script>
+
+    <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+    <script src="../assets/js/plugins/bootstrap-switch.js"></script>
+
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="../assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+
+    <!-- Chart JS -->
+    <script src="../assets/js/plugins/chartjs.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+
+    <!-- Control Center for Paper Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="../assets/js/paper-dashboard.js?v=2.0.0" type="text/javascript"></script>
+
+    <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+    <script src="../assets/demo/js/demo.js"></script>
+</body>
+</html>
