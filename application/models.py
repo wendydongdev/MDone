@@ -8,6 +8,7 @@ class User(db.Document):
     last_name   =   db.StringField( max_length=50 )
     email       =   db.StringField( max_length=30, unique=True )
     password    =   db.StringField( )
+    position    =   db.StringField( )
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -16,7 +17,7 @@ class User(db.Document):
         return check_password_hash(self.password, password)
 
 class Course(db.Document):
-    courseID   =   db.StringField( max_length=10, unique=True )
+    courseID    =   db.StringField( max_length=10, unique=True )
     title       =   db.StringField( max_length=100 )
     description =   db.StringField( max_length=255 )
     credits     =   db.IntField()
@@ -25,3 +26,20 @@ class Course(db.Document):
 class Enrollment(db.Document):
     user_id     =   db.IntField()
     courseID    =   db.StringField( max_length=10 )
+
+class Task(db.Document):
+    taskID      =   db.IntField( unique=True )
+    title       =   db.StringField( max_length=100 )
+    description =   db.StringField(max_length=255)
+    phases      =   db.IntField()
+    deadline    =   db.DateField()
+    fileLink    =   db.URLField()
+    complete    =   db.BooleanField()
+
+class comment(db.Document):
+    commentID   =   db.IntField( unique=True )
+    taskID      =   db.IntField()
+    user_ID     =   db.IntField()
+    time        =   db.DateTimeField()
+    comment     =   db.StringField( max_length=255 )
+

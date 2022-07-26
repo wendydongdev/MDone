@@ -33,34 +33,6 @@
     <div class="main-panel">
       {% include "includes/panel_nav.html" %}
       <div class="content">
-        {% if session['username'] %}
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card ">
-                        <div class="card-header ">
-                            <h5 class="card-title">Users status</h5>
-                                <p class="card-category">Notification</p>
-                        </div>
-                        <div class="card-body ">
-                            <span class="user">Welcome, {{ session['username'] }}</span>
-                            {% with messages = get_flashed_messages(with_categories=true) %}
-                                {% if messages %}
-                                    {% for category, message in messages %}
-                                    <div class="alert alert-{{category}}"><p>{{ message }}</p></div>
-                                    {% endfor %}
-                                {% endif %}
-                            {% endwith %}
-                        </div>
-{#                        <div class="card-footer ">#}
-{#                            <hr>#}
-{#                            <div class="stats">#}
-{#                                <i class="fa fa-history"></i> Updated 3 minutes ago#}
-{#                            </div>#}
-{#                        </div>#}
-                    </div>
-                </div>
-            </div>
-        {% endif %}
 
         <div class="row">
           <div class="col-md-12">
@@ -72,12 +44,12 @@
                 {%  block content %}
                 {% endblock %}
               </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-history"></i> Updated 3 minutes ago
-                </div>
-              </div>
+{#              <div class="card-footer ">#}
+{#                <hr>#}
+{#                <div class="stats">#}
+{#                  <i class="fa fa-history"></i> Updated 3 minutes ago#}
+{#                </div>#}
+{#              </div>#}
             </div>
           </div>
         </div>

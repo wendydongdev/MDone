@@ -43,6 +43,13 @@
                     {% endfor %}
                 </p>
 
+                <p> {{ form.position.label }}<br>
+                    {{ form.position }}
+                    {% for error in form.position.errors %}
+                     <span class="error-message">{{ error }}</span>
+                    {% endfor %}
+                </p>
+
                 <p>
                     {{ form.submit() }}
                 </p>

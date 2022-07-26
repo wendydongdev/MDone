@@ -5,15 +5,6 @@ from application.forms import LoginForm, RegisterForm
 from flask_restx import Resource,fields
 from application.course_list import course_list
 
-courseData = [
-    {"courseID": "1111", "title": "PHP 111", "description": "Intro to PHP", "credits": "3", "term": "Fall, Spring"},
-    {"courseID": "2222", "title": "Java 1", "description": "Intro to Java Programming", "credits": "4",
-     "term": "Spring"},
-    {"courseID": "3333", "title": "Adv PHP 201", "description": "Advanced PHP Programming", "credits": "3",
-     "term": "Fall"}, {"courseID": "4444", "title": "Angular 1", "description": "Intro to Angular", "credits": "3",
-                       "term": "Fall, Spring"},
-    {"courseID": "5555", "title": "Java 2", "description": "Advanced Java Programming", "credits": "4", "term": "Fall"}]
-
 
 #######################################
 
@@ -88,13 +79,13 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route("/courses/")
-@app.route("/courses/<term>")
-def courses(term=None):
+@app.route("/tasks/")
+@app.route("/tasks/<term>")
+def tasks(term=None):
     if term is None:
-        term = "Spring 2019"
+        term = "Spring 2022"
     classes = Course.objects.order_by("-courseID")
-    return render_template("courses.html", courseData=classes, courses=True, term=term)
+    return render_template("tasks.html", taskData=classes, tasks=True, term=term)
 
 
 @app.route("/register", methods=['POST', 'GET'])
@@ -110,8 +101,9 @@ def register():
         password = form.password.data
         first_name = form.first_name.data
         last_name = form.last_name.data
+        position = form.position.data
 
-        user = User(user_id=user_id, email=email, first_name=first_name, last_name=last_name)
+        user = User(user_id=user_id, email=email, first_name=first_name, last_name=last_name, position=position)
         user.set_password(password)
         user.save()
         flash("You are successfully registered!", "success")

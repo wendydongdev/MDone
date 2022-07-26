@@ -3,8 +3,8 @@
     <a href="{{ url_for('index') }}"><i class="nc-icon nc-bank"></i><p>Home</p></a>
     </li>
 
-    <li class="nav-link {% if courses %}active{% endif %}">
-    <a href="{{ url_for('courses') }}"><i class="nc-icon nc-bullet-list-67"></i><p>Task List</p></a>
+    <li class="nav-link {% if tasks %}active{% endif %}">
+    <a href="{{ url_for('tasks') }}"><i class="nc-icon nc-bullet-list-67"></i><p>Task List</p></a>
     </li>
 
     {% if not session['username'] %}
