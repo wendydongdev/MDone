@@ -12,12 +12,62 @@
             {% endif %}
 
             <div style="text-align:left;">
-                <h2>Please note the deadline</h2>
-
-                <p>Everyone's time is precious. Teammates do the extra work to have better results for the whole team, not to please you.</p>
-
-                <p>Please take care to check if you have any uncompleted tasks. This is related to whether other people's tasks can be started or not.</p>
-
+             <div class="row">
+          <div class="col-md-12">
+            <div class="card ">
+              <div class="card-header ">
+                <h5 class="card-title">task status</h5>
+              </div>
+              <div class="card-body ">
+                <canvas id=chartHours width="400" height="100"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card ">
+              <div class="card-header ">
+                <h5 class="card-title">Task Statistics</h5>
+              </div>
+              <div class="card-body ">
+                <canvas id="chartEmail"></canvas>
+              </div>
+              <div class="card-footer ">
+                <div class="legend">
+                  <i class="fa fa-circle text-primary"></i> Lily
+                  <i class="fa fa-circle text-warning"></i> Mike
+                  <i class="fa fa-circle text-danger"></i> Zun
+                  <i class="fa fa-circle text-gray"></i> Britney
+                </div>
+                <hr>
+                <div class="stats">
+                  <i class="fa fa-calendar"></i> Number of task finished
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-title">finished on time</h5>
+              </div>
+              <div class="card-body">
+                <canvas id="speedChart" width="400" height="100"></canvas>
+              </div>
+              <div class="card-footer">
+                <div class="chart-legend">
+                  <i class="fa fa-circle text-info"></i> tasks to do
+                  <i class="fa fa-circle text-warning"></i> finished task
+                </div>
+                <hr />
+                <div class="card-stats">
+                  <i class="fa fa-check"></i> Data information certified
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
                 </div>
 
         </div>

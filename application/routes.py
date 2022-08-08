@@ -1,9 +1,10 @@
 from application import app, db, api
 from flask import render_template, request, json, jsonify, Response, redirect, flash, url_for, session
-from application.models import User, Course, Enrollment
-from application.forms import LoginForm, RegisterForm
+from application.models import User, Course, Enrollment,Task
+from application.forms import LoginForm, RegisterForm,ADDNewTaskForm
 from flask_restx import Resource,fields
-from application.course_list import course_list
+from application.task_list import task_list
+from random import *
 
 
 #######################################
@@ -80,12 +81,10 @@ def logout():
 
 
 @app.route("/tasks/")
-@app.route("/tasks/<term>")
-def tasks(term=None):
-    if term is None:
-        term = "Spring 2022"
-    classes = Course.objects.order_by("-courseID")
-    return render_template("tasks.html", taskData=classes, tasks=True, term=term)
+# @app.route("/tasks/<phase>")
+def tasks(phase=None):
+    task = Task.objects.order_by("-deadline")
+    return render_template("tasks.html", taskData=task, tasks=True)
 
 
 @app.route("/register", methods=['POST', 'GET'])
@@ -110,38 +109,55 @@ def register():
         return redirect(url_for('index'))
     return render_template("register.html", title="Register", form=form, register=True)
 
+@app.route("/task-detail", methods=['POST', 'GET'])
+def settask():
+    if not session.get('username'):
+        return redirect(url_for('index'))
+    form = ADDNewTaskForm()
+    if form.validate_on_submit():
+        taskID = int(randint(1, 1000))
+        title = form.title.data
+        description = form.description.data
+        phase = form.phase.data
+        deadline = form.deadline.data
+
+        task = Task(taskID=taskID, title=title, description=description, phase=phase, deadline=deadline)
+        task.save()
+        flash("You are successfully settle!", "success")
+        return redirect(url_for('index'))
+    return render_template("task_detail.html", title="Task Detail", form=form, register=True)
 
 @app.route("/enrollment", methods=["GET", "POST"])
 def enrollment():
     if not session.get('username'):
         return redirect(url_for('login'))
 
-    courseID = request.form.get('courseID')
-    courseTitle = request.form.get('title')
+    taskID = request.form.get('taskID')
+    title = request.form.get('title')
     user_id = session.get('user_id')
 
-    if courseID:
-        if Enrollment.objects(user_id=user_id, courseID=courseID):
-            flash(f"Oops! You are already registered in this course {courseTitle}!", "danger")
-            return redirect(url_for("courses"))
+    if taskID:
+        if Enrollment.objects(user_id=user_id, taskID=taskID):
+            flash(f"Oops! You are already registered in this task {title}!", "danger")
+            return redirect(url_for("tasks"))
         else:
-            Enrollment(user_id=user_id, courseID=courseID).save()
-            flash(f"You are enrolled in {courseTitle}!", "success")
+            Enrollment(user_id=user_id, taskID=taskID).save()
+            flash(f"You are enrolled in {title}!", "success")
 
-    classes = course_list(user_id)
+    joinedTasks = task_list(user_id)
 
-    return render_template("enrollment.html", enrollment=True, title="Enrollment", classes=classes)
+    return render_template("enrollment.html", enrollment=True, title="Enrollment", tasks=joinedTasks)
 
 
-@app.route("/api/")
-@app.route("/api/<idx>")
-def api(idx=None):
-    if (idx == None):
-        jdata = courseData
-    else:
-        jdata = courseData[int(idx)]
-
-    return Response(json.dumps(jdata), mimetype="application/json")
+# @app.route("/api/")
+# @app.route("/api/<idx>")
+# def api(idx=None):
+#     if (idx == None):
+#         jdata = courseData
+#     else:
+#         jdata = courseData[int(idx)]
+#
+#     return Response(json.dumps(jdata), mimetype="application/json")
 
 
 @app.route("/user")

@@ -1,0 +1,37 @@
+
+    {% extends "layout.html" %}
+
+    {% block content %}
+
+    <div class="container">
+         <form name="login" action="" method="post" novalidate>
+        <fieldset class="form-group">
+            <legend>{{title}}</legend>
+            {{ form.hidden_tag() }}
+                <p> {{ form.title.label }}<br>
+                    {{ form.title }}
+                    {% for error in form.title.errors %}
+                     <span class="error-message">{{ error }}</span>
+                    {% endfor %}
+                </p>
+
+                <p> {{ form.description.label }}<br>
+                    {{ form.description }}
+                </p>
+
+                <p> {{ form.phase.label }}<br>
+                    {{ form.phase }}
+                </p>
+
+                <p> {{ form.deadline.label }}<br>
+                    {{ form.deadline }}
+                </p>
+
+                <p>
+                    {{ form.submit() }}
+                </p>
+
+        </fieldset>
+        </form>
+    </div>
+    {% endblock %}

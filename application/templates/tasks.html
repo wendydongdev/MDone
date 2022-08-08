@@ -4,7 +4,7 @@
     <h1>To Do List</h1>
 
     <!--  Display the Term and Year here --->
-    <h3>Term: {{ term }}</h3>
+{#    <h3>Phase: {{ phase }}</h3>#}
 
     <div>
         <table class="table table-hover">
@@ -14,21 +14,29 @@
                 <th scope="col">Title</th>
                 <th scope="col">Description</th>
                 <th scope="col">Phases</th>
+                <th scope="col">Deadline</th>
                 <th scope="col">Enroll</th>
             </tr>
             </thead>
             <tbody>
             {% for data in taskData %}
             <tr>
-                <td scope='row'>{{ data["courseID"] }}</td>
+                <td scope='row'>{{ data["taskID"] }}</td>
                 <td>{{ data["title"] }}</td>
                 <td>{{ data["description"] }}</td>
-                <td>{{ data["term"] }}</td>
+                <td>
+                    {% if data["phase"]==0 %}<div>Not start yet</div>{% endif %}
+                    {% if data["phase"]==1 %}<div class="p-3 mb-2 bg-secondary text-white">Working on it</div>{% endif %}
+                    {% if data["phase"]==2 %}<div class="p-3 mb-2 bg-success text-white">Done</div>{% endif %}
+                    {% if data["phase"]==3 %}<div class="p-3 mb-2 bg-warning text-white">Stuck</div>{% endif %}
+                    {% if data["phase"]==4 %}<div class="p-3 mb-2 bg-warning text-white">Waiting</div>{% endif %}
+                    {% if data["phase"]==5 %}<div class="p-3 mb-2 bg-danger text-white">Overdue</div>{% endif %}
+
+                </td>
+                <td>{{ data["deadline"] }}</td>
                 <td>
                     <form action="{{ url_for('enrollment') }}" method="post">
-                        <input type="hidden" name="courseID" value="{{data['courseID']}}">
-                        <input type="hidden" name="title" value="{{data['title']}}">
-                        <input type="hidden" name="term" value="{{data['term']}}">
+                        <input type="hidden" name="taskID" value="{{data['taskID']}}">
                     <button class="btn btn-primary">Enroll</button>
                     </form>
                 </td>
@@ -37,7 +45,7 @@
             </tbody>
         </table>
 
-    <button class="btn btn-outline-primary btn-round"><i class="fa-solid fa-file-plus"></i>Add new task</button>
+    <button class="btn btn-outline-primary btn-round"><a href="{{ url_for('settask') }}"><i class="fa-solid fa-file-plus"></i>Add new task</a></button>
     </div>
 
 {% endblock %}

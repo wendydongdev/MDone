@@ -1,8 +1,10 @@
 import flask
 from application import db
+import mongo
+#from Task import Task
 from werkzeug.security import generate_password_hash, check_password_hash
 
-class User(db.Document):
+class User(mongo.Document):
     user_id     =   db.IntField( unique=True )
     first_name  =   db.StringField( max_length=50 )
     last_name   =   db.StringField( max_length=50 )
@@ -16,27 +18,20 @@ class User(db.Document):
     def get_password(self, password):
         return check_password_hash(self.password, password)
 
-class Course(db.Document):
+class Course(mongo.Document):
     courseID    =   db.StringField( max_length=10, unique=True )
     title       =   db.StringField( max_length=100 )
     description =   db.StringField( max_length=255 )
     credits     =   db.IntField()
     term        =   db.StringField( max_length=25 )
 
-class Enrollment(db.Document):
+class Enrollment(mongo.Document):
     user_id     =   db.IntField()
-    courseID    =   db.StringField( max_length=10 )
+    taskID      =   db.IntField( max_length=10 )
 
-class Task(db.Document):
-    taskID      =   db.IntField( unique=True )
-    title       =   db.StringField( max_length=100 )
-    description =   db.StringField(max_length=255)
-    phases      =   db.IntField()
-    deadline    =   db.DateField()
-    fileLink    =   db.URLField()
-    complete    =   db.BooleanField()
 
-class comment(db.Document):
+
+class comment(mongo.Document):
     commentID   =   db.IntField( unique=True )
     taskID      =   db.IntField()
     user_ID     =   db.IntField()

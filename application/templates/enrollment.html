@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-12 text-center">
 
-            {% if not classes %}
+            {% if not tasks %}
                 <h2>You are not enrolled in any task.</h2>
             {% else %}
                 <h1>You are enrolled in:</h1>
@@ -15,23 +15,30 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th scope="col">Course ID</th>
+                        <th scope="col">Task ID</th>
                         <th scope="col">Title</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Hours</th>
-                        <th scope="col">Term</th>
+                        <th scope="col">Phases</th>
+                        <th scope="col">Deadline</th>
                     </tr>
                     </thead>
                     <tbody>
 
                     <!-- Construct the rest of courses here -->
-                    {% for class in classes %}
+                    {% for task in tasks %}
                     <tr>
-                        <td scope='row'>{{ class.r2["courseID"] }}</td>
-                        <td>{{ class.r2["title"] }}</td>
-                        <td>{{ class.r2["description"] }}</td>
-                        <td>{{ class.r2["credits"] }}</td>
-                        <td>{{ class.r2["term"] }}</td>
+                        <td scope='row'>{{ task.r2["taskID"] }}</td>
+                        <td>{{ task.r2["title"] }}</td>
+                        <td>{{ task.r2["description"] }}</td>
+                        <td>
+                             {% if task.r2["phase"]==0 %}<div>Not start yet</div>{% endif %}
+                            {% if task.r2["phase"]==1 %}<div class="p-3 mb-2 bg-secondary text-white">Working on it</div>{% endif %}
+                            {% if task.r2["phase"]==2 %}<div class="p-3 mb-2 bg-success text-white">Done</div>{% endif %}
+                            {% if task.r2["phase"]==3 %}<div class="p-3 mb-2 bg-warning text-white">Stuck</div>{% endif %}
+                            {% if task.r2["phase"]==4 %}<div class="p-3 mb-2 bg-warning text-white">Waiting</div>{% endif %}
+                            {% if task.r2["phase"]==5 %}<div class="p-3 mb-2 bg-danger text-white">Overdue</div>{% endif %}
+                        </td>
+                        <td>{{ task.r2["deadline"] }}</td>
                     </tr>
                     {% endfor %}
 
